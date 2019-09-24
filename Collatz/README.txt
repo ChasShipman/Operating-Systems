@@ -1,0 +1,1 @@
+Compile using~ gcc shell.c string.c sll.c -Wall -Wextra -std=c99 -o shell

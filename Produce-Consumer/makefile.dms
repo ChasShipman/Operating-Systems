@@ -1,0 +1,17 @@
+all : p320 p536 pp3
+
+p320 : p320.c p320.h
+	gcc -c p320.c -o p320
+
+p536 : p536.o p320.o
+	gcc p536.o p320.o -o p536 -lpthread
+
+pp3 : pp3.o p320.o
+	gcc pp3.o  p320.o -o pp3 -lpthread
+
+#buffer: buffer.c buffer.h
+	#gcc -c buffer.c -o buffer
+
+clean:
+	rm -f p320.o p536.o buffer.o pp3.o
+	rm -f p320 p536 buffer pp3

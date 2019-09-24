@@ -1,0 +1,45 @@
+OBJS = dispatcher.o process.o scanner.o sll.o queue.o processStruct.o
+OOPTS = -Wall -Wextra -c -std=c99
+LOPTS = -Wall -Wextra -g -std=c99 
+
+all : dispatcher process random
+
+dispatcher : dispatcher.o queue.o scanner.o sll.o processStruct.o
+	gcc $(LOPTS) dispatcher.o queue.o scanner.o sll.o processStruct.o -o dispatcher
+	
+dispatcher.o : dispatcher.c queue.h scanner.h processStruct.h
+	gcc $(OOPTS) dispatcher.c
+
+process : sigtrap.c
+	gcc $(LOPTS) sigtrap.c -o process
+
+random : randomSample.c
+	gcc $(LOPTS) randomSample.c -o random 
+
+queue.o : queue.c queue.h sll.h
+	gcc $(OOPTS) queue.c
+
+scanner.o : scanner.c scanner.h
+	gcc $(OOPTS) scanner.c
+
+sll.o : sll.c sll.h
+	gcc $(OOPTS) sll.c
+
+processStruct.o : processStruct.c processStruct.h
+	gcc $(OOPTS) processStruct.c
+
+test : all
+	rm -f dispatcherList.txt
+	./random
+
+run : all
+	./dispatcher msample.txt
+
+clear: 
+	clear
+	clear
+	clear
+
+clean :
+	rm -f $(OBJS) dispatcher process random dispatcherList.txt
+	rm -rf process.dSYM random.dSYM dispatcher.dSYM

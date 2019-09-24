@@ -1,0 +1,28 @@
+all: fifo lru
+
+test: fifo lru
+	@./fifo addresses.txt >> fifo.txt
+	@./lru addresses.txt >> lru.txt
+	open -t fifo.txt
+	open -t lru.txt
+
+fifo: fifo.o
+	gcc -Wall -g fifo.o -o fifo
+
+fifo.o: fifo.c 
+	gcc -Wall -c -Wextra -std=c99 fifo.c
+
+lru: lru.o
+	gcc -Wall -g lru.o -o lru
+
+lru.o: lru.c
+	gcc -Wall -c -Wextra -std=c99 lru.c
+
+clean:
+	rm -f fifo.o fifo lru.o lru 
+	rm -f fifo.txt
+	rm -f lru.txt
+	clear
+	clear
+	clear
+	ls
